@@ -22,23 +22,5 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
-<<<<<<< HEAD
-	<classpathentry kind="lib" path="F:/EXIA A1/CER/UE 5 Java/CER UE 5.3 Interfaces/showboard.jar"/>
-=======
-	<classpathentry kind="lib" path="C:/Users/antoi/Desktop/showboard.jar"/>
-<<<<<<< HEAD
->>>>>>> 7b60ab697d823d38371269b52c41c6e09b2364a1
-=======
-	<classpathentry excluding="**" kind="src" output="target/classes" path="src/main/resources">
-		<attributes>
-			<attribute name="maven.pomderived" value="true"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry excluding="**" kind="src" output="target/test-classes" path="src/test/resources">
-		<attributes>
-			<attribute name="maven.pomderived" value="true"/>
-		</attributes>
-	</classpathentry>
->>>>>>> ef0edd5d13f1139522f274189e5fbb0f78878447
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
