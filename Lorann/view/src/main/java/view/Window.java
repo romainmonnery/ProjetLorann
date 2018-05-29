@@ -2,6 +2,8 @@ package view;
 
 import javax.swing.JFrame;
 
+import model.Transf;
+
 public class Window extends JFrame{
 	
 	
