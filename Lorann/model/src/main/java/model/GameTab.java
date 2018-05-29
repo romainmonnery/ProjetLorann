@@ -48,7 +48,7 @@ for (int i = 0 ; i< WIDTH ; i++)
 
 }
 ///////////////////////////////////
-char getChar(int positionX,int positionY) {
+public char getChar(int positionX,int positionY) {
 	return tab[positionX][positionY];
 }
 
