@@ -2,27 +2,27 @@ package model;
 
 public abstract class Elements {
 
-	private int elementX;
-	private int elementY;
-	
+	protected int positionX;
+	protected int positionY;
+
 	public Elements() {
-		
+
 	}
-	
+
 	public int getElementX() {
-		return this.elementX;
+		return this.positionX;
 	}
-	
+
 	public int getElementY() {
-		return this.elementY;
+		return this.positionY;
 	}
-	
+
 	public void setElementX(int elementX) {
-		this.elementX = elementX;
+		this.positionX = elementX;
 	}
-	
+
 	public void setElementY(int elementY) {
-		this.elementY = elementY;
+		this.positionY = elementY;
 	}
-	
+
 }
