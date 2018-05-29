@@ -1,5 +1,5 @@
 package main;
-
+import model.Map;
 import java.sql.SQLException;
 
 import controller.ControllerFacade;
@@ -21,13 +21,23 @@ public abstract class Main {
      *            the arguments
      */
     public static void main(final String[] args) {
-        final ControllerFacade controller = new ControllerFacade(new ViewFacade(), new ModelFacade());
+       
+    	
+    	
+    	Map mapdejeu = new Map();
+    	mapdejeu.Initialize();
+    	mapdejeu.Showtab();
+    	
+    	
+    	
+    	
+    	/* final ControllerFacade controller = new ControllerFacade(new ViewFacade(), new ModelFacade());
 
         try {
             controller.start();
         } catch (final SQLException exception) {
             exception.printStackTrace();
-        }
+        } */
         
        //1234567895
     }
