@@ -2,27 +2,30 @@ package model;
 
 import model.GameTab;
 
-public abstract class MobileElement extends Elements {
+public class MobileElement extends Elements {
 
-	
 	public MobileElement() {
 
 	}
-	
+
 	public boolean moveUp() {
+		return false;
 	
 	}
-	
-	public void moveDown() {
-		
+
+	public boolean moveDown() {
+		return false;
+
 	}
-	
-	public void moveLeft() {
-		
+
+	public boolean moveLeft() {
+		return false;
+
 	}
-	
-	public void moveRight() {
-		
+
+	public boolean moveRight() {
+		return false;
+
 	}
 
 }

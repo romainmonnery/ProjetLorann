@@ -1,9 +1,7 @@
 package main;
-import model.Map;
+import model.GameTab;
 import java.sql.SQLException;
-
 import controller.ControllerFacade;
-import model.ModelFacade;
 import view.ViewFacade;
 
 /**
@@ -21,11 +19,13 @@ public abstract class Main {
      *            the arguments
      */
     public static void main(final String[] args) {
-       
+          	
+    	String path = "C:/Users/Niels/Downloads/Salles/";
+    	String filePrev = "salle0";
+    	String fileNumber = "05";
+    	String extension = ".txt";
+    	GameTab mapdejeu = new GameTab(path + filePrev + fileNumber + extension);
     	
-    	
-    	Map mapdejeu = new Map();
-    	mapdejeu.Initialize();
     	mapdejeu.Showtab();
     	
     	
