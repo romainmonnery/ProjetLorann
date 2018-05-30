@@ -1,66 +1,55 @@
 package controller;
+
 import model.GameTab;
 import java.awt.Panel;
 import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+
 import view.Window;
 import model.Player;
 
 public class GameManager {
-	Window f;
-	Player player1;
-	String path = "C:/Users/Niels/Downloads/Salles/";
+	Window window;
+	Player player;
+	GameTab gameTab;
+	String path = "C:/Users/marti/Desktop/projet";
 	String filePrev = "salle0";
 	String fileNumber = "05";
 	String extension = ".txt";
-	GameTab mapdejeu;
+	
 
 	public GameManager() {
-		f=new Window();
-		player1 = new Player();
-		mapdejeu = new GameTab(path + filePrev + fileNumber + extension);
+		this.run();
 
 	}
 
 	public void keyControl(view.Panel pan, KeyEvent evt) {
 
 		if (evt.getKeyCode() == KeyEvent.VK_LEFT) {
-			// Keym.left(pan); methode move uu ou chez pas quoi
-
+			gameTab.MovePlayerLeft(player, gameTab);
 		}
 
 		if (evt.getKeyCode() == KeyEvent.VK_RIGHT) {
-
-			// Keym.rigth(pan);
+			gameTab.MovePlayerRight(player, gameTab);
 		}
 
 		if (evt.getKeyCode() == KeyEvent.VK_UP) {
+			gameTab.MovePlayerUp(player, gameTab);
 
-			// Keym.up(pan);
 		}
 
 		if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
+			gameTab.MovePlayerDown(player, gameTab);
 
-			// Keym.down(pan);
 		}
 
 	}
 
-
-
-	public int drawPlayer() {
-		return 0;
-		// getters de Players
-
+	public void run() {
+		gameTab = new GameTab(path + filePrev + fileNumber + extension);
+		player = new Player();
+		window = new Window();
 	}
 
 
-
-public char[][] getTab() {
-	
-	return mapdejeu.tab;
-	
-	
-	
-	
-	
-}}
+}

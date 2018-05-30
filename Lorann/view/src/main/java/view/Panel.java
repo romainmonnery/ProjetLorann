@@ -9,31 +9,32 @@ import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 import controller.GameManager;
 import model.dao.ImageImport;
+import model.GameTab;
 import model.Player;
+
 public class Panel extends JPanel {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private GameManager personnage = new GameManager();
 	private static final int sizeCase = 32;
 	private ImageImport imageImport;
 	private Player player;
+	private Window f;
 	
 	
-	public Panel() {
-		
+	public Panel(Window f) {
+		this.f =f;
 	}
 
-	public void paintComponent(Graphics g) {
-		imageImport = new ImageImport();
-		player = new Player();
+	public void paintComponent(Graphics g, GameTab gameTab, Player player, ImageImport imageImport) {
+		
 		g.setColor(Color.BLACK);
 		g.fillRect(0, 0, getWidth(), getHeight());
 
 		int x = 0, y = 0;
 		g.setColor(Color.WHITE);
-		for (char[] tc : personnage.getTab())  {
+		for (char[] tc : gameTab.getTab())  {
 			for (char c : tc) {
 
 				Image img = imageImport.getImage(c);

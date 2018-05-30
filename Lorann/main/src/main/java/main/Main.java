@@ -1,9 +1,11 @@
 package main;
+import controller.GameManager;
 import model.GameTab;
 import model.Player;
 
 import java.sql.SQLException;
 import controller.ControllerFacade;
+import controller.GameManager;
 import view.ViewFacade;
 
 /**
@@ -22,18 +24,7 @@ public abstract class Main {
      */
     public static void main(final String[] args) {
     
-    	Player player1 = new Player();
-    	String path = "C:/Users/Niels/Downloads/Salles/";
-    	String filePrev = "salle0";
-    	String fileNumber = "05";
-    	String extension = ".txt";
-    	
-    	GameTab mapdejeu = new GameTab(path + filePrev + fileNumber + extension);
-    	
-    	mapdejeu.Showtab();
-    	System.out.println("Le joueur bouge en haut");
-    	mapdejeu.MovePlayerLeft(player1,mapdejeu);
-    	mapdejeu.Showtab();
+    	GameManager game = new GameManager();
     	
     	
     	

@@ -35,7 +35,7 @@ public class GameTab {
 			for (int j = 0; j < HEIGHT; j++) {
 				System.out.print(tab[i][j]);
 			}
-			System.out.println(); // quand on passe au "i" suivant (dans la boucle for) on retourne à la ligne
+			
 		}
 
 	}
@@ -230,6 +230,11 @@ public class GameTab {
 		return tab[positionX][positionY];
 	}
 
+	public char[][] getTab() {
+
+		return this.tab;
+
+	}
 	/*
 	 * public void settab(int x, int y,char p) { if (p != 1 && p !=2) {
 	 * System.out.println("Nombre joueur incorrect"); } else if (x > 2 || x < 0) {

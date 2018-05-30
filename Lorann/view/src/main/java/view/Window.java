@@ -6,7 +6,7 @@ import java.awt.event.KeyListener;
 
 import javax.swing.*;
 
-public class Window extends JFrame implements KeyListener {
+public class Window extends JFrame implements KeyListener{
 
 	/**
 	 * 
@@ -21,9 +21,9 @@ public class Window extends JFrame implements KeyListener {
 		this.setLocationRelativeTo(null);
 		this.setBackground(Color.BLACK);
 		pan = new Panel(this);
+		pan.repaint();
 		this.setContentPane(pan);
 		this.setVisible(true);
-
 		this.addKeyListener(this);
 
 	}
@@ -32,7 +32,6 @@ public class Window extends JFrame implements KeyListener {
 	@Override
 	public void keyPressed(KeyEvent evt) {
 
-		GameManager Keyc = new GameManager();
 		Keyc.keyControl(pan, evt);
 		pan.repaint();
 	}
@@ -40,12 +39,14 @@ public class Window extends JFrame implements KeyListener {
 	@Override
 	public void keyReleased(KeyEvent e) {
 		// TODO Auto-generated method stub
-
+		
 	}
 
 	@Override
 	public void keyTyped(KeyEvent e) {
 		// TODO Auto-generated method stub
+		
+	}
 
 	}
 
