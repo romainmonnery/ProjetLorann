@@ -12,16 +12,17 @@ import model.dao.LorannBDDConnector;
 
 public class GameTab {
 
-	public char[][] tab;
+	public  char[][] tab;
 	private final int WIDTH; // nb colonne
 	private final int HEIGHT; // nb ligne
+	
 	/////////// Constructor//////////////
 
 	public GameTab(String mapPath) {
 		HEIGHT = 20;
 		WIDTH = 12;
 		tab = new char[WIDTH][HEIGHT];
-		
+	
 		InitializeWithFile(mapPath);
 		// InitializeWithBDD();
 	}
@@ -41,13 +42,11 @@ public class GameTab {
 
 	///////////////////////////////////
 
-	public void InitializeWithBDD()
-	{
+	public void InitializeWithBDD() {
 		ResultSet rs = LorannBDDConnector.getInstance().executeQuery("SELECT * FROM map");
-		
+
 		try {
-			while(rs.next())
-			{
+			while (rs.next()) {
 				System.out.println(rs.getString("content"));
 			}
 		} catch (SQLException e) {
@@ -55,7 +54,7 @@ public class GameTab {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void InitializeWithFile(String path) {
 		try {
 
@@ -64,14 +63,12 @@ public class GameTab {
 			int x = 0;
 			int y = 0;
 			String line;
-			
-			while ((line = reader.readLine()) != null) 
-			{		
-				for (char c : line.toCharArray()) 
-				{
+
+			while ((line = reader.readLine()) != null) {
+				for (char c : line.toCharArray()) {
 					tab[x][y] = c;
 					y++;
-				}		
+				}
 				x++;
 				y = 0;
 			}
@@ -83,7 +80,25 @@ public class GameTab {
 		}
 	}
 
-	public char getChar(int positionX, int positionY) {
+	public void MovePlayerUp(Player player) {
+
+		if (this.GetChar(player.getPositionX(), player.getPositionY() + 1) == ' ') {
+			player.setPositionX(player.getPositionX());
+			player.setPositionY(player.getPositionY() + 1);
+			System.out.println("Char rencontré espace");
+		} 
+		
+		else if ((this.GetChar(player.getPositionX(), player.getPositionY() + 1) == 'I')
+				|| (this.GetChar(player.getPositionX(), player.getPositionY() + 1) == '-')
+				|| (this.GetChar(player.getPositionX(), player.getPositionY() + 1) == 'O')) {
+			player.setPositionX(player.getPositionX());
+			player.setPositionY(player.getPositionY());
+			System.out.println("Char rencontré mur");
+		}
+		else System.out.println("Char rencontré inconnu");
+	}
+
+	public char GetChar(int positionX, int positionY) {
 		return tab[positionX][positionY];
 	}
 
