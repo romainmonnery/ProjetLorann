@@ -1,34 +1,42 @@
+package view;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
-import java.awt.image.BufferedImage;
+import java.awt.image.*;
 import java.io.File;
 import java.io.IOException;
-
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
-
+import controller.GameManager;
+import model.dao.ImageImport;
+import model.Player;
 public class Panel extends JPanel {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	public Fenetre f;
-	private int sizeCase = 32;
-	public Panel(Fenetre f) {
-		this.f = f;
+	private GameManager personnage = new GameManager();
+	private static final int sizeCase = 32;
+	private ImageImport imageImport;
+	private Player player;
+	
+	
+	public Panel() {
+		
 	}
 
 	public void paintComponent(Graphics g) {
+		imageImport = new ImageImport();
+		player = new Player();
 		g.setColor(Color.BLACK);
 		g.fillRect(0, 0, getWidth(), getHeight());
 
 		int x = 0, y = 0;
 		g.setColor(Color.WHITE);
-		for (char[] tc : f.m.lvl1.caractere) {
+		for (char[] tc : personnage.getTab())  {
 			for (char c : tc) {
 
-				Image img = f.m.getImage(c);
+				Image img = imageImport.getImage(c);
 				g.drawImage(img, x * sizeCase, 20 + y * sizeCase, null);
 				// g.drawString(c+"", x*sizeCase, 20+y*sizeCase);
 				y++;
@@ -36,7 +44,12 @@ public class Panel extends JPanel {
 			x++;
 			y = 0;
 		}
-		Action perso = new Action(g);
-
+		try {
+			BufferedImage perso = ImageIO.read(new File("C:/Users/marti/Desktop/projet/sprite/lorann_u.png"));
+			g.drawImage(perso, player.getPositionX() * sizeCase, player.getPositionY() * sizeCase, null);
+			// repaint();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 }
