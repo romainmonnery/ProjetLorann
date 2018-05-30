@@ -12,17 +12,17 @@ import model.dao.LorannBDDConnector;
 
 public class GameTab {
 
-	public  char[][] tab;
+	public char[][] tab;
 	private final int WIDTH; // nb colonne
 	private final int HEIGHT; // nb ligne
-	
+
 	/////////// Constructor//////////////
 
 	public GameTab(String mapPath) {
 		HEIGHT = 20;
 		WIDTH = 12;
 		tab = new char[WIDTH][HEIGHT];
-	
+
 		InitializeWithFile(mapPath);
 		// InitializeWithBDD();
 	}
@@ -80,22 +80,150 @@ public class GameTab {
 		}
 	}
 
-	public void MovePlayerUp(Player player) {
+	public void MovePlayerUp(Player player,GameTab updatedGameTab) {
 
-		if (this.GetChar(player.getPositionX(), player.getPositionY() + 1) == ' ') {
-			player.setPositionX(player.getPositionX());
-			player.setPositionY(player.getPositionY() + 1);
+		if (this.GetChar(player.getPositionX() - 1, player.getPositionY()) == ' ') {
+			player.setPositionX(player.getPositionX() - 1);
+			player.setPositionY(player.getPositionY());
 			System.out.println("Char rencontré espace");
-		} 
-		
-		else if ((this.GetChar(player.getPositionX(), player.getPositionY() + 1) == 'I')
-				|| (this.GetChar(player.getPositionX(), player.getPositionY() + 1) == '-')
-				|| (this.GetChar(player.getPositionX(), player.getPositionY() + 1) == 'O')) {
+			updatedGameTab.ReplacePlayer(player, updatedGameTab);
+		}
+
+		else if ((this.GetChar(player.getPositionX() - 1, player.getPositionY()) == 'I')
+				|| (this.GetChar(player.getPositionX() - 1, player.getPositionY()) == '-')
+				|| (this.GetChar(player.getPositionX() - 1, player.getPositionY()) == 'O')) {
 			player.setPositionX(player.getPositionX());
 			player.setPositionY(player.getPositionY());
 			System.out.println("Char rencontré mur");
 		}
-		else System.out.println("Char rencontré inconnu");
+
+		else if ((this.GetChar(player.getPositionX() - 1, player.getPositionY()) == 'D')
+				|| (this.GetChar(player.getPositionX() - 1, player.getPositionY()) == 'A')
+				|| (this.GetChar(player.getPositionX() - 1, player.getPositionY()) == 'C')
+				|| (this.GetChar(player.getPositionX() - 1, player.getPositionY()) == 'C')) {
+
+			System.out.println("\n Game Over");
+		}
+
+		else
+			System.out.println(
+					"Char rencontré inconnu" + '"' + GetChar(player.getPositionX() + 1, player.getPositionY()) + '"');
+
+	}
+	
+	public void MovePlayerDown(Player player,GameTab updatedGameTab) {
+
+		if (this.GetChar(player.getPositionX() + 1, player.getPositionY()) == ' ') {
+			player.setPositionX(player.getPositionX() + 1);
+			player.setPositionY(player.getPositionY());
+			System.out.println("Char rencontré espace");
+			updatedGameTab.ReplacePlayer(player, updatedGameTab);
+		}
+
+		else if ((this.GetChar(player.getPositionX() + 1, player.getPositionY()) == 'I')
+				|| (this.GetChar(player.getPositionX() + 1, player.getPositionY()) == '-')
+				|| (this.GetChar(player.getPositionX() + 1, player.getPositionY()) == 'O')) {
+			player.setPositionX(player.getPositionX());
+			player.setPositionY(player.getPositionY());
+			System.out.println("Char rencontré mur");
+		}
+
+		else if ((this.GetChar(player.getPositionX() + 1, player.getPositionY()) == 'D')
+				|| (this.GetChar(player.getPositionX() + 1, player.getPositionY()) == 'A')
+				|| (this.GetChar(player.getPositionX() + 1, player.getPositionY()) == 'C')
+				|| (this.GetChar(player.getPositionX() + 1, player.getPositionY()) == 'C')) {
+
+			System.out.println("\n Game Over");
+		}
+
+		else
+			System.out.println(
+					"Char rencontré inconnu" + '"' + GetChar(player.getPositionX() + 1, player.getPositionY()) + '"');
+
+	}
+
+	public void MovePlayerLeft(Player player,GameTab updatedGameTab) {
+
+		if (this.GetChar(player.getPositionX(), player.getPositionY()-1) == ' ') {
+			player.setPositionX(player.getPositionX());
+			player.setPositionY(player.getPositionY()-1);
+			System.out.println("Char rencontré espace");
+			updatedGameTab.ReplacePlayer(player, updatedGameTab);
+		}
+
+		else if ((this.GetChar(player.getPositionX(), player.getPositionY()-1) == 'I')
+				|| (this.GetChar(player.getPositionX(), player.getPositionY()-1) == '-')
+				|| (this.GetChar(player.getPositionX(), player.getPositionY()-1) == 'O')) {
+			player.setPositionX(player.getPositionX());
+			player.setPositionY(player.getPositionY());
+			System.out.println("Char rencontré mur");
+		}
+
+		else if ((this.GetChar(player.getPositionX(), player.getPositionY()-1) == 'D')
+				|| (this.GetChar(player.getPositionX(), player.getPositionY()-1) == 'A')
+				|| (this.GetChar(player.getPositionX(), player.getPositionY()-1) == 'C')
+				|| (this.GetChar(player.getPositionX(), player.getPositionY()-1) == 'C')) {
+
+			System.out.println("\n Game Over");
+		}
+
+		else
+			System.out.println(
+					"Char rencontré inconnu" + '"' + GetChar(player.getPositionX() + 1, player.getPositionY()) + '"');
+
+	}
+
+	public void MovePlayerRight(Player player,GameTab updatedGameTab) {
+
+		if (this.GetChar(player.getPositionX(), player.getPositionY()+1) == ' ') {
+			player.setPositionX(player.getPositionX());
+			player.setPositionY(player.getPositionY()+1);
+			System.out.println("Char rencontré espace");
+			updatedGameTab.ReplacePlayer(player, updatedGameTab);
+		}
+
+		else if ((this.GetChar(player.getPositionX(), player.getPositionY()+1) == 'I')
+				|| (this.GetChar(player.getPositionX(), player.getPositionY()+1) == '-')
+				|| (this.GetChar(player.getPositionX(), player.getPositionY()+1) == 'O')) {
+			player.setPositionX(player.getPositionX());
+			player.setPositionY(player.getPositionY());
+			System.out.println("Char rencontré mur");
+		}
+
+		else if ((this.GetChar(player.getPositionX(), player.getPositionY()+1) == 'D')
+				|| (this.GetChar(player.getPositionX(), player.getPositionY()+1) == 'A')
+				|| (this.GetChar(player.getPositionX(), player.getPositionY()+1) == 'C')
+				|| (this.GetChar(player.getPositionX(), player.getPositionY()+1) == 'C')) {
+
+			System.out.println("\n Game Over");
+		}
+
+		else
+			System.out.println(
+					"Char rencontré inconnu" + '"' + GetChar(player.getPositionX() + 1, player.getPositionY()) + '"');
+
+	}
+	//////////////////////////////////////////////////////////////
+
+	public void ReplacePlayer(Player player, GameTab updatedGameTab) {
+		int newX;
+		int newY;
+
+		newX = player.getPositionX();
+		newY = player.getPositionY();
+
+		for (int i = 0; i < WIDTH; i++) {
+			for (int j = 0; j < HEIGHT; j++) {
+				if (tab[i][j] == player.getName()) {
+					tab[i][j] = ' ';
+				} 
+					
+			}
+			
+		}
+
+		updatedGameTab.tab[newX][newY] = player.getName();
+
 	}
 
 	public char GetChar(int positionX, int positionY) {

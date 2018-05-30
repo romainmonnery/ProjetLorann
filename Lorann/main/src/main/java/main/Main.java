@@ -32,12 +32,12 @@ public abstract class Main {
     	
     	mapdejeu.Showtab();
     	System.out.println("Le joueur bouge en haut");
-    	mapdejeu.MovePlayerUp(player1);
+    	mapdejeu.MovePlayerLeft(player1,mapdejeu);
     	mapdejeu.Showtab();
     	
     	
     	
-    	
+    	// System.out.println(mapdejeu.GetChar(player1.getPositionX()-1,player1.getPositionY()));
     	/* final ControllerFacade controller = new ControllerFacade(new ViewFacade(), new ModelFacade());
 
         try {

@@ -26,7 +26,7 @@ public class Player extends MobileElement{
 	////////////constructeur///////////
 	public Player() {
 		this.positionX = 6;
-		this.positionY = 17;
+		this.positionY = 15;
 	}
 
 }
