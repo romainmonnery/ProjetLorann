@@ -13,7 +13,7 @@ public abstract class Elements {
 		return this.positionX;
 	}
 
-	public int getElementY() {
+	public int getElementY() { 
 		return this.positionY;
 	}
 
