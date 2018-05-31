@@ -10,12 +10,9 @@ import model.Player;
 
 public class GameManager {
 	Window window;
-	Player player;
-	GameTab gameTab;
-	String path = "C:/Users/marti/Desktop/projet";
-	String filePrev = "salle0";
-	String fileNumber = "05";
-	String extension = ".txt";
+	//Player player;
+	//GameTab gameTab;
+	
 	
 
 	public GameManager() {
@@ -23,7 +20,7 @@ public class GameManager {
 
 	}
 
-	public void keyControl(view.Panel pan, KeyEvent evt) {
+	/*public void keyControl( KeyEvent evt, Player player, GameTab gameTab) {
 
 		if (evt.getKeyCode() == KeyEvent.VK_LEFT) {
 			gameTab.MovePlayerLeft(player, gameTab);
@@ -43,11 +40,10 @@ public class GameManager {
 
 		}
 
-	}
+	}*/
 
 	public void run() {
-		gameTab = new GameTab(path + filePrev + fileNumber + extension);
-		player = new Player();
+		
 		window = new Window();
 	}
 

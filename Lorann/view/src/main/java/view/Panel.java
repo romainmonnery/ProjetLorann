@@ -1,4 +1,5 @@
 package view;
+
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
@@ -18,27 +19,35 @@ public class Panel extends JPanel {
 	 */
 	private static final long serialVersionUID = 1L;
 	private static final int sizeCase = 32;
-	private ImageImport imageImport;
-	private Player player;
 	private Window f;
-	
-	
+	private Player player;
+	private ImageImport imageImport;
+	private GameTab gameTab;
+	String path = "C:/Users/marti/Desktop/projet/";
+	String filePrev = "salle0";
+	String fileNumber = "01";
+	String extension = ".txt";
+
 	public Panel(Window f) {
-		this.f =f;
+		setPlayer(new Player());
+		imageImport = new ImageImport();
+		setGameTab(new GameTab(path + filePrev + fileNumber + extension));
+		this.f = f;
+		//gameTab.Showtab();
 	}
 
-	public void paintComponent(Graphics g, GameTab gameTab, Player player, ImageImport imageImport) {
-		
+	public void paintComponent(Graphics g) {
+
 		g.setColor(Color.BLACK);
 		g.fillRect(0, 0, getWidth(), getHeight());
 
 		int x = 0, y = 0;
-		g.setColor(Color.WHITE);
-		for (char[] tc : gameTab.getTab())  {
+		//g.setColor(Color.WHITE);
+		for (char[] tc : getGameTab().getTab()) {
 			for (char c : tc) {
 
 				Image img = imageImport.getImage(c);
-				g.drawImage(img, x * sizeCase, 20 + y * sizeCase, null);
+				g.drawImage(img, y * sizeCase,  x * sizeCase, null);
 				// g.drawString(c+"", x*sizeCase, 20+y*sizeCase);
 				y++;
 			}
@@ -47,10 +56,26 @@ public class Panel extends JPanel {
 		}
 		try {
 			BufferedImage perso = ImageIO.read(new File("C:/Users/marti/Desktop/projet/sprite/lorann_u.png"));
-			g.drawImage(perso, player.getPositionX() * sizeCase, player.getPositionY() * sizeCase, null);
+			g.drawImage(perso, getPlayer().getPositionY() * sizeCase, getPlayer().getPositionX() * sizeCase, null);
 			// repaint();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+
+	public Player getPlayer() {
+		return player;
+	}
+
+	public void setPlayer(Player player) {
+		this.player = player;
+	}
+
+	public GameTab getGameTab() {
+		return gameTab;
+	}
+
+	public void setGameTab(GameTab gameTab) {
+		this.gameTab = gameTab;
 	}
 }

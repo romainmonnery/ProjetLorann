@@ -35,7 +35,7 @@ public class GameTab {
 			for (int j = 0; j < HEIGHT; j++) {
 				System.out.print(tab[i][j]);
 			}
-			
+			System.out.println("");
 		}
 
 	}
@@ -100,14 +100,14 @@ public class GameTab {
 		else if ((this.GetChar(player.getPositionX() - 1, player.getPositionY()) == 'D')
 				|| (this.GetChar(player.getPositionX() - 1, player.getPositionY()) == 'A')
 				|| (this.GetChar(player.getPositionX() - 1, player.getPositionY()) == 'C')
-				|| (this.GetChar(player.getPositionX() - 1, player.getPositionY()) == 'C')) {
+				|| (this.GetChar(player.getPositionX() - 1, player.getPositionY()) == 'W')) {
 
 			System.out.println("\n Game Over");
 		}
 
 		else
 			System.out.println(
-					"Char rencontré inconnu" + '"' + GetChar(player.getPositionX() + 1, player.getPositionY()) + '"');
+					"Char rencontré inconnu" + '"' + GetChar(player.getPositionX() - 1, player.getPositionY()) + '"');
 
 	}
 	
@@ -169,7 +169,7 @@ public class GameTab {
 
 		else
 			System.out.println(
-					"Char rencontré inconnu" + '"' + GetChar(player.getPositionX() + 1, player.getPositionY()) + '"');
+					"Char rencontré inconnu" + '"' + GetChar(player.getPositionX(), player.getPositionY()-1) + '"');
 
 	}
 
@@ -200,7 +200,7 @@ public class GameTab {
 
 		else
 			System.out.println(
-					"Char rencontré inconnu" + '"' + GetChar(player.getPositionX() + 1, player.getPositionY()) + '"');
+					"Char rencontré inconnu" + '"' + GetChar(player.getPositionX(), player.getPositionY()+1) + '"');
 
 	}
 	//////////////////////////////////////////////////////////////

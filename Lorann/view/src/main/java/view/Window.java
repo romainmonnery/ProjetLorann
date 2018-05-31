@@ -1,5 +1,9 @@
 package view;
 import controller.GameManager;
+import controller.MoveController;
+import model.GameTab;
+import model.Player;
+
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -7,6 +11,7 @@ import java.awt.event.KeyListener;
 import javax.swing.*;
 
 public class Window extends JFrame implements KeyListener{
+	
 
 	/**
 	 * 
@@ -17,11 +22,10 @@ public class Window extends JFrame implements KeyListener{
 	public Window() {
 
 		this.setTitle("Lorann");
-		this.setSize(670, 430);
+		this.setSize(670, 530);
 		this.setLocationRelativeTo(null);
 		this.setBackground(Color.BLACK);
 		pan = new Panel(this);
-		pan.repaint();
 		this.setContentPane(pan);
 		this.setVisible(true);
 		this.addKeyListener(this);
@@ -29,10 +33,9 @@ public class Window extends JFrame implements KeyListener{
 	}
 
 	@SuppressWarnings("unused")
-	@Override
-	public void keyPressed(KeyEvent evt) {
-
-		Keyc.keyControl(pan, evt);
+	public void keyPressed(KeyEvent evt ) {
+		MoveController Keyc = new MoveController();
+		Keyc.keyControl(evt, pan.getPlayer(), pan.getGameTab());
 		pan.repaint();
 	}
 
@@ -50,4 +53,4 @@ public class Window extends JFrame implements KeyListener{
 
 	}
 
-}
+

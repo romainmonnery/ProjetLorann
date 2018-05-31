@@ -15,7 +15,7 @@ import view.ViewFacade;
  * @version 1.0
  */
 public abstract class Main {
-
+	
     /**
      * The main method.
      *
@@ -23,10 +23,15 @@ public abstract class Main {
      *            the arguments
      */
     public static void main(final String[] args) {
-    
+    	/*String path = "C:/Users/marti/Desktop/projet/";
+    	String filePrev = "salle0";
+    	String fileNumber = "05";
+    	String extension = ".txt";
+    	
+    	GameTab game= new GameTab(path + filePrev + fileNumber + extension);
+    	game.Showtab();*/
+    	
     	GameManager game = new GameManager();
-    	
-    	
     	
     	// System.out.println(mapdejeu.GetChar(player1.getPositionX()-1,player1.getPositionY()));
     	/* final ControllerFacade controller = new ControllerFacade(new ViewFacade(), new ModelFacade());
