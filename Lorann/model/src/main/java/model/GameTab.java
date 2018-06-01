@@ -9,25 +9,36 @@ import java.util.ArrayList;
 import java.util.List;
 
 import model.dao.LorannBDDConnector;
+import model.dao.MapDAO;
 
 public class GameTab {
 
 	public char[][] tab;
 	private final int WIDTH; // nb colonne
 	private final int HEIGHT; // nb ligne
+	private int row = 12;
+	private int column = 20;
+	private int totalcarac = 0;
+	private char[][] boardArray;
 
 	/////////// Constructor//////////////
 
-	public GameTab(String mapPath) {
+	public GameTab() throws SQLException {
 		HEIGHT = 20;
 		WIDTH = 12;
 		tab = new char[WIDTH][HEIGHT];
 
-		InitializeWithFile(mapPath);
-		// InitializeWithBDD();
+		// InitializeWithFile(mapPath); String mapPath
+		InitializeWithBDD();
 	}
 
-	///////////////////////////////////
+///////////////////////////////////
+	public void ReplaceTabWitBDDTab(){
+		this.tab = this.getBoardArray();
+	}
+	
+	
+///////////////////////////////////
 
 	public void Showtab() {
 
@@ -42,187 +53,180 @@ public class GameTab {
 
 	///////////////////////////////////
 
-	public void InitializeWithBDD() {
-		ResultSet rs = LorannBDDConnector.getInstance().executeQuery("SELECT * FROM map");
-
-		try {
-			while (rs.next()) {
-				System.out.println(rs.getString("content"));
-			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+	public void InitializeWithBDD() throws SQLException {
+		String map = MapDAO.getMapById(4);
+		this.Board(map);
+		this.ReplaceTabWitBDDTab();
 	}
 
-	public void InitializeWithFile(String path) {
-		try {
+//	public void InitializeWithFile(String path) {
+//		try {
+//
+//			BufferedReader reader = new BufferedReader(new FileReader(path));
+//
+//			int x = 0;
+//			int y = 0;
+//			String line;
+//
+//			while ((line = reader.readLine()) != null) {
+//				for (char c : line.toCharArray()) {
+//					tab[x][y] = c;
+//					y++;
+//				}
+//				x++;
+//				y = 0;
+//			}
+//
+//			reader.close();
+//
+//		} catch (IOException e) {
+//
+//		}
+//	}
 
-			BufferedReader reader = new BufferedReader(new FileReader(path));
+	public void MovePlayerUp(MobileElement mobileelement, GameTab updatedGameTab) {
 
-			int x = 0;
-			int y = 0;
-			String line;
-
-			while ((line = reader.readLine()) != null) {
-				for (char c : line.toCharArray()) {
-					tab[x][y] = c;
-					y++;
-				}
-				x++;
-				y = 0;
-			}
-
-			reader.close();
-
-		} catch (IOException e) {
-
-		}
-	}
-
-	public void MovePlayerUp(Player player,GameTab updatedGameTab) {
-
-		if (this.GetChar(player.getPositionX() - 1, player.getPositionY()) == ' ') {
-			player.setPositionX(player.getPositionX() - 1);
-			player.setPositionY(player.getPositionY());
+		if (this.GetChar(mobileelement.getPositionX() - 1, mobileelement.getPositionY()) == ' ') {
+			mobileelement.setPositionX(mobileelement.getPositionX() - 1);
+			mobileelement.setPositionY(mobileelement.getPositionY());
 			System.out.println("Char rencontré espace");
-			updatedGameTab.ReplacePlayer(player, updatedGameTab);
+			updatedGameTab.ReplacePlayer(mobileelement, updatedGameTab);
 		}
 
-		else if ((this.GetChar(player.getPositionX() - 1, player.getPositionY()) == 'I')
-				|| (this.GetChar(player.getPositionX() - 1, player.getPositionY()) == '-')
-				|| (this.GetChar(player.getPositionX() - 1, player.getPositionY()) == 'O')) {
-			player.setPositionX(player.getPositionX());
-			player.setPositionY(player.getPositionY());
+		else if ((this.GetChar(mobileelement.getPositionX() - 1, mobileelement.getPositionY()) == 'I')
+				|| (this.GetChar(mobileelement.getPositionX() - 1, mobileelement.getPositionY()) == '-')
+				|| (this.GetChar(mobileelement.getPositionX() - 1, mobileelement.getPositionY()) == 'O')) {
+			mobileelement.setPositionX(mobileelement.getPositionX());
+			mobileelement.setPositionY(mobileelement.getPositionY());
 			System.out.println("Char rencontré mur");
 		}
 
-		else if ((this.GetChar(player.getPositionX() - 1, player.getPositionY()) == 'D')
-				|| (this.GetChar(player.getPositionX() - 1, player.getPositionY()) == 'A')
-				|| (this.GetChar(player.getPositionX() - 1, player.getPositionY()) == 'C')
-				|| (this.GetChar(player.getPositionX() - 1, player.getPositionY()) == 'W')) {
+		else if ((this.GetChar(mobileelement.getPositionX() - 1, mobileelement.getPositionY()) == 'D')
+				|| (this.GetChar(mobileelement.getPositionX() - 1, mobileelement.getPositionY()) == 'A')
+				|| (this.GetChar(mobileelement.getPositionX() - 1, mobileelement.getPositionY()) == 'C')
+				|| (this.GetChar(mobileelement.getPositionX() - 1, mobileelement.getPositionY()) == 'W')) {
 
 			System.out.println("\n Game Over");
 		}
 
 		else
 			System.out.println(
-					"Char rencontré inconnu" + '"' + GetChar(player.getPositionX() - 1, player.getPositionY()) + '"');
+					"Char rencontré inconnu" + '"' + GetChar(mobileelement.getPositionX() - 1, mobileelement.getPositionY()) + '"');
 
 	}
-	
-	public void MovePlayerDown(Player player,GameTab updatedGameTab) {
 
-		if (this.GetChar(player.getPositionX() + 1, player.getPositionY()) == ' ') {
-			player.setPositionX(player.getPositionX() + 1);
-			player.setPositionY(player.getPositionY());
+	public void MovePlayerDown(MobileElement mobileelement, GameTab updatedGameTab) {
+
+		if (this.GetChar(mobileelement.getPositionX() + 1, mobileelement.getPositionY()) == ' ') {
+			mobileelement.setPositionX(mobileelement.getPositionX() + 1);
+			mobileelement.setPositionY(mobileelement.getPositionY());
 			System.out.println("Char rencontré espace");
-			updatedGameTab.ReplacePlayer(player, updatedGameTab);
+			updatedGameTab.ReplacePlayer(mobileelement, updatedGameTab);
 		}
 
-		else if ((this.GetChar(player.getPositionX() + 1, player.getPositionY()) == 'I')
-				|| (this.GetChar(player.getPositionX() + 1, player.getPositionY()) == '-')
-				|| (this.GetChar(player.getPositionX() + 1, player.getPositionY()) == 'O')) {
-			player.setPositionX(player.getPositionX());
-			player.setPositionY(player.getPositionY());
+		else if ((this.GetChar(mobileelement.getPositionX() + 1, mobileelement.getPositionY()) == 'I')
+				|| (this.GetChar(mobileelement.getPositionX() + 1, mobileelement.getPositionY()) == '-')
+				|| (this.GetChar(mobileelement.getPositionX() + 1, mobileelement.getPositionY()) == 'O')) {
+			mobileelement.setPositionX(mobileelement.getPositionX());
+			mobileelement.setPositionY(mobileelement.getPositionY());
 			System.out.println("Char rencontré mur");
 		}
 
-		else if ((this.GetChar(player.getPositionX() + 1, player.getPositionY()) == 'D')
-				|| (this.GetChar(player.getPositionX() + 1, player.getPositionY()) == 'A')
-				|| (this.GetChar(player.getPositionX() + 1, player.getPositionY()) == 'C')
-				|| (this.GetChar(player.getPositionX() + 1, player.getPositionY()) == 'C')) {
+		else if ((this.GetChar(mobileelement.getPositionX() + 1, mobileelement.getPositionY()) == 'D')
+				|| (this.GetChar(mobileelement.getPositionX() + 1, mobileelement.getPositionY()) == 'A')
+				|| (this.GetChar(mobileelement.getPositionX() + 1, mobileelement.getPositionY()) == 'C')
+				|| (this.GetChar(mobileelement.getPositionX() + 1, mobileelement.getPositionY()) == 'W')) {
 
 			System.out.println("\n Game Over");
 		}
 
 		else
 			System.out.println(
-					"Char rencontré inconnu" + '"' + GetChar(player.getPositionX() + 1, player.getPositionY()) + '"');
+					"Char rencontré inconnu" + '"' + GetChar(mobileelement.getPositionX() + 1, mobileelement.getPositionY()) + '"');
 
 	}
 
-	public void MovePlayerLeft(Player player,GameTab updatedGameTab) {
+	public void MovePlayerLeft(MobileElement mobileelement, GameTab updatedGameTab) {
 
-		if (this.GetChar(player.getPositionX(), player.getPositionY()-1) == ' ') {
-			player.setPositionX(player.getPositionX());
-			player.setPositionY(player.getPositionY()-1);
+		if (this.GetChar(mobileelement.getPositionX(), mobileelement.getPositionY() - 1) == ' ') {
+			mobileelement.setPositionX(mobileelement.getPositionX());
+			mobileelement.setPositionY(mobileelement.getPositionY() - 1);
 			System.out.println("Char rencontré espace");
-			updatedGameTab.ReplacePlayer(player, updatedGameTab);
+			updatedGameTab.ReplacePlayer(mobileelement, updatedGameTab);
 		}
 
-		else if ((this.GetChar(player.getPositionX(), player.getPositionY()-1) == 'I')
-				|| (this.GetChar(player.getPositionX(), player.getPositionY()-1) == '-')
-				|| (this.GetChar(player.getPositionX(), player.getPositionY()-1) == 'O')) {
-			player.setPositionX(player.getPositionX());
-			player.setPositionY(player.getPositionY());
+		else if ((this.GetChar(mobileelement.getPositionX(), mobileelement.getPositionY() - 1) == 'I')
+				|| (this.GetChar(mobileelement.getPositionX(), mobileelement.getPositionY() - 1) == '-')
+				|| (this.GetChar(mobileelement.getPositionX(), mobileelement.getPositionY() - 1) == 'O')) {
+			mobileelement.setPositionX(mobileelement.getPositionX());
+			mobileelement.setPositionY(mobileelement.getPositionY());
 			System.out.println("Char rencontré mur");
 		}
 
-		else if ((this.GetChar(player.getPositionX(), player.getPositionY()-1) == 'D')
-				|| (this.GetChar(player.getPositionX(), player.getPositionY()-1) == 'A')
-				|| (this.GetChar(player.getPositionX(), player.getPositionY()-1) == 'C')
-				|| (this.GetChar(player.getPositionX(), player.getPositionY()-1) == 'C')) {
+		else if ((this.GetChar(mobileelement.getPositionX(), mobileelement.getPositionY() - 1) == 'D')
+				|| (this.GetChar(mobileelement.getPositionX(), mobileelement.getPositionY() - 1) == 'A')
+				|| (this.GetChar(mobileelement.getPositionX(), mobileelement.getPositionY() - 1) == 'C')
+				|| (this.GetChar(mobileelement.getPositionX(), mobileelement.getPositionY() - 1) == 'W')) {
 
 			System.out.println("\n Game Over");
 		}
 
 		else
 			System.out.println(
-					"Char rencontré inconnu" + '"' + GetChar(player.getPositionX(), player.getPositionY()-1) + '"');
+					"Char rencontré inconnu" + '"' + GetChar(mobileelement.getPositionX(), mobileelement.getPositionY() - 1) + '"');
 
 	}
 
-	public void MovePlayerRight(Player player,GameTab updatedGameTab) {
+	public void MovePlayerRight(MobileElement mobileelement, GameTab updatedGameTab) {
 
-		if (this.GetChar(player.getPositionX(), player.getPositionY()+1) == ' ') {
-			player.setPositionX(player.getPositionX());
-			player.setPositionY(player.getPositionY()+1);
+		if (this.GetChar(mobileelement.getPositionX(), mobileelement.getPositionY() + 1) == ' ') {
+			mobileelement.setPositionX(mobileelement.getPositionX());
+			mobileelement.setPositionY(mobileelement.getPositionY() + 1);
 			System.out.println("Char rencontré espace");
-			updatedGameTab.ReplacePlayer(player, updatedGameTab);
+			updatedGameTab.ReplacePlayer(mobileelement, updatedGameTab);
 		}
 
-		else if ((this.GetChar(player.getPositionX(), player.getPositionY()+1) == 'I')
-				|| (this.GetChar(player.getPositionX(), player.getPositionY()+1) == '-')
-				|| (this.GetChar(player.getPositionX(), player.getPositionY()+1) == 'O')) {
-			player.setPositionX(player.getPositionX());
-			player.setPositionY(player.getPositionY());
+		else if ((this.GetChar(mobileelement.getPositionX(), mobileelement.getPositionY() + 1) == 'I')
+				|| (this.GetChar(mobileelement.getPositionX(), mobileelement.getPositionY() + 1) == '-')
+				|| (this.GetChar(mobileelement.getPositionX(), mobileelement.getPositionY() + 1) == 'O')) {
+			mobileelement.setPositionX(mobileelement.getPositionX());
+			mobileelement.setPositionY(mobileelement.getPositionY());
 			System.out.println("Char rencontré mur");
 		}
 
-		else if ((this.GetChar(player.getPositionX(), player.getPositionY()+1) == 'D')
-				|| (this.GetChar(player.getPositionX(), player.getPositionY()+1) == 'A')
-				|| (this.GetChar(player.getPositionX(), player.getPositionY()+1) == 'C')
-				|| (this.GetChar(player.getPositionX(), player.getPositionY()+1) == 'C')) {
+		else if ((this.GetChar(mobileelement.getPositionX(), mobileelement.getPositionY() + 1) == 'D')
+				|| (this.GetChar(mobileelement.getPositionX(), mobileelement.getPositionY() + 1) == 'A')
+				|| (this.GetChar(mobileelement.getPositionX(), mobileelement.getPositionY() + 1) == 'C')
+				|| (this.GetChar(mobileelement.getPositionX(), mobileelement.getPositionY() + 1) == 'W')) {
 
 			System.out.println("\n Game Over");
 		}
 
 		else
 			System.out.println(
-					"Char rencontré inconnu" + '"' + GetChar(player.getPositionX(), player.getPositionY()+1) + '"');
+					"Char rencontré inconnu" + '"' + GetChar(mobileelement.getPositionX(), mobileelement.getPositionY() + 1) + '"');
 
 	}
 	//////////////////////////////////////////////////////////////
 
-	public void ReplacePlayer(Player player, GameTab updatedGameTab) {
+	public void ReplacePlayer(MobileElement mobileelement, GameTab updatedGameTab) {
 		int newX;
 		int newY;
 
-		newX = player.getPositionX();
-		newY = player.getPositionY();
+		newX = mobileelement.getPositionX();
+		newY = mobileelement.getPositionY();
 
 		for (int i = 0; i < WIDTH; i++) {
 			for (int j = 0; j < HEIGHT; j++) {
-				if (tab[i][j] == player.getName()) {
+				if (tab[i][j] == mobileelement.getName()) {
 					tab[i][j] = ' ';
-				} 
-					
+				}
+
 			}
-			
+
 		}
 
-		updatedGameTab.tab[newX][newY] = player.getName();
+		updatedGameTab.tab[newX][newY] = mobileelement.getName();
 
 	}
 
@@ -235,11 +239,30 @@ public class GameTab {
 		return this.tab;
 
 	}
-	/*
-	 * public void settab(int x, int y,char p) { if (p != 1 && p !=2) {
-	 * System.out.println("Nombre joueur incorrect"); } else if (x > 2 || x < 0) {
-	 * System.out.println("Nombre de colonne choisie incorrect"); } else if (y > 2
-	 * || y < 0) { System.out.println("Nombre de ligne choisie incorrect"); } else {
-	 * tab[x][y] = p; }
-	 */
+
+	public void Board(String s) {
+
+		boardArray = new char[row][column];
+		for (int i = 0; i < row; i++) {
+			for (int j = 0; j < column; j++) {
+				boardArray[i][j] = s.charAt(totalcarac++);
+				//System.out.print(boardArray[i][j]);
+			}
+			//System.out.println("");
+		}
+	}
+
+	public char[][] getBoardArray() {
+		return boardArray;
+	}
+
+	public void setBoardArray(char[][] boardArray) {
+		this.boardArray = boardArray;
+	}
+
+public int rand() {
+	Double k = Math.random() * (5-1);
+	Integer d = k.intValue();
+	return d;
+}
 }

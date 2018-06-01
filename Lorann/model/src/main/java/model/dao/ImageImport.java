@@ -1,4 +1,5 @@
 package model.dao;
+
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -59,18 +60,36 @@ public class ImageImport {
 								e.printStackTrace();
 							}
 
+						}else {
+						if (c == 'Y') {
+							try {
+								i = ImageIO.read(new File("C:/Users/marti/Desktop/projet/sprite/gate_closed.png"));
+							} catch (IOException e) {
+								e.printStackTrace();
+							}
+
 						} else {
+							if(c=='Z') {
+								
+								try {
+									i = ImageIO.read(new File("C:/Users/marti/Desktop/projet/sprite/gate_open.png"));
+								} catch (IOException e) {
+									e.printStackTrace();
+								}
+								
+								
+							}else 
+
 							i = null;
 						}
+
 					}
-
 				}
-
 			}
-
 		}
-
-		return i;
+		
+		
 
 	}
-}
+		return i;
+}}

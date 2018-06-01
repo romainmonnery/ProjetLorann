@@ -21,28 +21,13 @@ public abstract class Main {
      *
      * @param args
      *            the arguments
+     * @throws SQLException 
      */
-    public static void main(final String[] args) {
-    	/*String path = "C:/Users/marti/Desktop/projet/";
-    	String filePrev = "salle0";
-    	String fileNumber = "05";
-    	String extension = ".txt";
+    public static void main(final String[] args) throws SQLException {
     	
-    	GameTab game= new GameTab(path + filePrev + fileNumber + extension);
-    	game.Showtab();*/
-    	
+//    	GameTab abc = new  GameTab();
+//    	abc.rand();
     	GameManager game = new GameManager();
     	
-    	// System.out.println(mapdejeu.GetChar(player1.getPositionX()-1,player1.getPositionY()));
-    	/* final ControllerFacade controller = new ControllerFacade(new ViewFacade(), new ModelFacade());
-
-        try {
-            controller.start();
-        } catch (final SQLException exception) {
-            exception.printStackTrace();
-        } */
-        
-       //1234567895
-    }
-
-}
+    
+}}

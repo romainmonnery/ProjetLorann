@@ -6,11 +6,14 @@ import java.awt.Image;
 import java.awt.image.*;
 import java.io.File;
 import java.io.IOException;
+import java.sql.SQLException;
+
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 import controller.GameManager;
 import model.dao.ImageImport;
 import model.GameTab;
+import model.Monster;
 import model.Player;
 
 public class Panel extends JPanel {
@@ -18,22 +21,24 @@ public class Panel extends JPanel {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private static final int sizeCase = 32;
+	private static final int sizeCase = 40;
 	private Window f;
+	private Monster monster;
 	private Player player;
 	private ImageImport imageImport;
 	private GameTab gameTab;
 	String path = "C:/Users/marti/Desktop/projet/";
 	String filePrev = "salle0";
-	String fileNumber = "01";
+	String fileNumber = "05";
 	String extension = ".txt";
 
-	public Panel(Window f) {
+	public Panel(Window f) throws SQLException {
 		setPlayer(new Player());
 		imageImport = new ImageImport();
-		setGameTab(new GameTab(path + filePrev + fileNumber + extension));
+		setGameTab(new GameTab());
 		this.f = f;
-		//gameTab.Showtab();
+		monster = new Monster();
+		// gameTab.Showtab();
 	}
 
 	public void paintComponent(Graphics g) {
@@ -42,12 +47,12 @@ public class Panel extends JPanel {
 		g.fillRect(0, 0, getWidth(), getHeight());
 
 		int x = 0, y = 0;
-		//g.setColor(Color.WHITE);
+		// g.setColor(Color.WHITE);
 		for (char[] tc : getGameTab().getTab()) {
 			for (char c : tc) {
 
 				Image img = imageImport.getImage(c);
-				g.drawImage(img, y * sizeCase,  x * sizeCase, null);
+				g.drawImage(img, y * sizeCase, x * sizeCase, null);
 				// g.drawString(c+"", x*sizeCase, 20+y*sizeCase);
 				y++;
 			}
@@ -57,6 +62,13 @@ public class Panel extends JPanel {
 		try {
 			BufferedImage perso = ImageIO.read(new File("C:/Users/marti/Desktop/projet/sprite/lorann_u.png"));
 			g.drawImage(perso, getPlayer().getPositionY() * sizeCase, getPlayer().getPositionX() * sizeCase, null);
+			// repaint();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		try {
+			BufferedImage monster = ImageIO.read(new File("C:/Users/marti/Desktop/projet/sprite/monster_1.png"));
+			g.drawImage(monster, getMonster().getPositionY() * sizeCase, getMonster().getPositionX() * sizeCase, null);
 			// repaint();
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -77,5 +89,9 @@ public class Panel extends JPanel {
 
 	public void setGameTab(GameTab gameTab) {
 		this.gameTab = gameTab;
+	}
+
+	public Monster getMonster() {
+		return monster;
 	}
 }
