@@ -22,6 +22,7 @@ public class Panel extends JPanel {
 	 */
 	private static final long serialVersionUID = 1L;
 	private static final int sizeCase = 40;
+	@SuppressWarnings("unused")
 	private Window f;
 	private Monster monster;
 	private Player player;

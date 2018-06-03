@@ -1,14 +1,6 @@
 package model;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
-
-import model.dao.LorannBDDConnector;
 import model.dao.MapDAO;
 
 public class GameTab {
@@ -260,9 +252,21 @@ public class GameTab {
 		this.boardArray = boardArray;
 	}
 
-public int rand() {
-	Double k = Math.random() * (5-1);
-	Integer d = k.intValue();
-	return d;
+public int MoveIaX(int monsterX, int playerX) {
+	int a = 0;
+	if(monsterX>playerX) {a=1;}
+	if(monsterX<playerX) {a=2;}
+	return a;
+//	Double k = Math.random() * (5-1);
+//	Integer d = k.intValue();
+//	return d;
+	
 }
+
+public int MoveIaY(int monsterY, int playerY) {
+	int b = 0;
+	if(monsterY>playerY) {b=3;}
+	if(monsterY<playerY) {b=4;}
+	return b;
+	}
 }

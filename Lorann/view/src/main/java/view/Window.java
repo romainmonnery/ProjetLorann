@@ -41,33 +41,36 @@ public class Window extends JFrame implements KeyListener {
 		ActionListener taskPerformer = new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
 				int a;
-				a = pan.getGameTab().rand();
+				int b;
+				a = pan.getGameTab().MoveIaX(pan.getMonster().getPositionX(), pan.getPlayer().getPositionX());
 				switch (a) {
-
-				case 0:
-					MoveIA(pan.getMonster(), KeyEvent.VK_RIGHT);
-					pan.repaint();
-					break;
-
 				case 1:
-					MoveIA(pan.getMonster(), KeyEvent.VK_LEFT);
-					pan.repaint();
-					break;
-				case 2:
 					MoveIA(pan.getMonster(), KeyEvent.VK_UP);
 					pan.repaint();
 					break;
-
-				case 3:
-					MoveIA(pan.getMonster(), KeyEvent.VK_DOWN);
-					pan.repaint();
-					break;
-
-				default:
+				case 2:
 					MoveIA(pan.getMonster(), KeyEvent.VK_DOWN);
 					pan.repaint();
 					break;
 				}
+				b = pan.getGameTab().MoveIaY(pan.getMonster().getPositionY(), pan.getPlayer().getPositionY());
+				switch (b) {
+				case 3:
+					MoveIA(pan.getMonster(), KeyEvent.VK_LEFT);
+					pan.repaint();
+					break;
+
+				case 4:
+					MoveIA(pan.getMonster(), KeyEvent.VK_RIGHT);
+					pan.repaint();
+					break;
+
+				}
+
+				// default:
+				// MoveIA(pan.getMonster(), KeyEvent.VK_DOWN);
+				// pan.repaint();
+				// break;
 
 			}
 		};
