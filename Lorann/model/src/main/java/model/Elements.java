@@ -1,28 +1,32 @@
 package model;
 
-public abstract class Elements {
+import model.GameTab;
 
+public abstract class Elements {
 	protected int positionX;
 	protected int positionY;
+	protected char name;
 
+	public int getPositionX() {
+		return positionX;
+	}
+	public void setPositionX(int positionX) {
+		this.positionX = positionX;
+	}
+	public int getPositionY() {
+		return positionY;
+	}
+	public void setPositionY(int positionY) {
+		this.positionY = positionY;
+	}
+	public char getName() {
+		return name;
+	}
+	
+	public abstract boolean isPassable();
+	
 	public Elements() {
 
-	}
-
-	public int getElementX() {
-		return this.positionX;
-	}
-
-	public int getElementY() {
-		return this.positionY;
-	}
-
-	public void setElementX(int elementX) {
-		this.positionX = elementX;
-	}
-
-	public void setElementY(int elementY) {
-		this.positionY = elementY;
 	}
 
 }

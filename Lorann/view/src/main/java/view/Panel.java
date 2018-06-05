@@ -28,6 +28,7 @@ public class Panel extends JPanel {
 	private Player player;
 	private ImageImport imageImport;
 	private GameTab gameTab;
+	private EndGame endGame;
 	String path = "C:/Users/marti/Desktop/projet/";
 	String filePrev = "salle0";
 	String fileNumber = "05";
@@ -37,6 +38,7 @@ public class Panel extends JPanel {
 		setPlayer(new Player());
 		imageImport = new ImageImport();
 		setGameTab(new GameTab());
+		this.endGame = new EndGame();
 		this.f = f;
 		monster = new Monster();
 		// gameTab.Showtab();
@@ -93,6 +95,10 @@ public class Panel extends JPanel {
 	}
 
 	public Monster getMonster() {
-		return monster;
+		return this.monster;
+	}
+	
+	public EndGame getEndGame() {
+		return this.endGame;
 	}
 }

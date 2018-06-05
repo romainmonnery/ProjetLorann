@@ -1,6 +1,6 @@
 package model;
 
-public class Player extends MobileElement{
+public class Player extends Elements implements IMobile{
 	
 
 	
@@ -12,6 +12,11 @@ public class Player extends MobileElement{
 		this.positionX = 2;
 		this.positionY = 17;
 		this.name = '@';
+	}
+
+	@Override
+	public boolean isPassable() {
+		return true;
 	}
 
 }

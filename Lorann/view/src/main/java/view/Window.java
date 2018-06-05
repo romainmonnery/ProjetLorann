@@ -1,11 +1,7 @@
 package view;
 
-import controller.GameManager;
 import controller.MoveController;
-import model.GameTab;
-import model.MobileElement;
-import model.Player;
-
+import model.Elements;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -24,7 +20,7 @@ public class Window extends JFrame implements KeyListener {
 	private Panel pan;
 	MoveController keyc;
 
-	public Window() throws SQLException {
+	public Window() throws SQLException{
 
 		this.setTitle("Lorann");
 		this.setSize(820, 550);
@@ -35,9 +31,9 @@ public class Window extends JFrame implements KeyListener {
 		this.setContentPane(pan);
 		this.setVisible(true);
 		this.addKeyListener(this);
-
+		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		///// TIMER IA///////
-		int delay = 200; // milliseconds
+		int delay =150; // milliseconds
 		ActionListener taskPerformer = new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
 				int a;
@@ -45,23 +41,45 @@ public class Window extends JFrame implements KeyListener {
 				a = pan.getGameTab().MoveIaX(pan.getMonster().getPositionX(), pan.getPlayer().getPositionX());
 				switch (a) {
 				case 1:
-					MoveIA(pan.getMonster(), KeyEvent.VK_UP);
+
+					try {
+						MoveIA(pan.getMonster(), KeyEvent.VK_UP);
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+
 					pan.repaint();
 					break;
 				case 2:
-					MoveIA(pan.getMonster(), KeyEvent.VK_DOWN);
+					try {
+						MoveIA(pan.getMonster(), KeyEvent.VK_DOWN);
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 					pan.repaint();
 					break;
 				}
 				b = pan.getGameTab().MoveIaY(pan.getMonster().getPositionY(), pan.getPlayer().getPositionY());
 				switch (b) {
 				case 3:
-					MoveIA(pan.getMonster(), KeyEvent.VK_LEFT);
+					try {
+						MoveIA(pan.getMonster(), KeyEvent.VK_LEFT);
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 					pan.repaint();
 					break;
 
 				case 4:
-					MoveIA(pan.getMonster(), KeyEvent.VK_RIGHT);
+					try {
+						MoveIA(pan.getMonster(), KeyEvent.VK_RIGHT);
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 					pan.repaint();
 					break;
 
@@ -81,7 +99,12 @@ public class Window extends JFrame implements KeyListener {
 	@SuppressWarnings("unused")
 	public void keyPressed(KeyEvent evt) {
 
-		keyc.keyControl(evt.getKeyCode(), pan.getPlayer(), pan.getGameTab());
+		try {
+			keyc.keyControl(evt.getKeyCode(), pan.getPlayer(), pan.getGameTab(), pan.getEndGame());
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		pan.repaint();
 	}
 
@@ -97,8 +120,8 @@ public class Window extends JFrame implements KeyListener {
 
 	}
 
-	public void MoveIA(MobileElement element, int keycode) {
-		keyc.keyControl(keycode, element, pan.getGameTab());
+	public void MoveIA(Elements element, int keycode) throws SQLException {
+		keyc.keyControl(keycode, element, pan.getGameTab(), pan.getEndGame());
 
 	}
 
